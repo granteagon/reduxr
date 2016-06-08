@@ -227,7 +227,8 @@ todoArray.action.create({
 // }
 ```
 
-
+You can now safely dispatch this action without worrying about it conflicting
+with other reducers of the same name.
 
 ## Roadmap
 
