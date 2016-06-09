@@ -1,6 +1,6 @@
 # Reduxr
 
-DRY up your [Redux](https://github.com/reactjs/redux) code.
+[Redux](https://github.com/reactjs/redux) made easy - no boilerplate!
 
 With Reduxr, you never have to create actions or action creators unless you
 want to.  You just need to define your reducers.  Reduxr handles the rest.
@@ -14,22 +14,24 @@ want to.  You just need to define your reducers.  Reduxr handles the rest.
   - Reducer methods can have simple names like `create`, `read`, `update`,
   `delete` as a result!
 - Low cyclomatic complexity instead of long `switch` or `if` statement. Reducer
-methods are defined in an easy to read hash map.
+methods are defined in an easy to read map.
 
 ## How Does it Work?
 
-Define a hash map of individual reducer methods and a reducer function and
-action hash map will be generated for you.
+Define a map of individual reducer methods and a reducer function and
+action map will be generated for you.
 
 ```js
 import reject from 'lodash/reject'
 
 const initialState = []
 
-const todoArray = reduxr({
+const reducers = {
   create: (state, action) => [ ...state, action.payload ],
   delete: (state, action) => reject(state, action.payload)
-}, initialState)
+}
+
+const todoArray = reduxr(reducers, initialState)
 
 // ->
 // {
@@ -75,7 +77,7 @@ Let's say we have to toggle a todo.
 // Todo.js
 import { reduxr } from 'reduxr'
 
-// define our reducers in a hash map
+// define our reducers in a map
 const todoReducer = {
   todoToggleVisibility: (state) => {
     return {
@@ -91,22 +93,12 @@ const initialState = {
   visible: false
 }
 
-// then export the dry-ness!
 export default const todo = reduxr(todoReducer, initialState)
-// That was easy :)
-```
-
-#### Output
-I call this an action reducer because it's a reducer that's aware of the actions
-that can be reduced through it. The call to `reduxr` generated the
-following output:
-
-```js
 {
   action: {
-    todoToggleVisibility: [Function] // the function we defined above
+    todoToggleVisibility: [Function] // action creator method
   },
-  reducer: [Function] // a reducer that you can use in combineReducers
+  reducer: [Function] // reducer method for use in combineReducers
 }
 ```
 
@@ -124,7 +116,11 @@ const store = createStore(
 )
 
 store.dispatch(Todo.action.todoToggleVisibility({visible: true}))
-// -> dispatches: { type: 'todoToggleVisibility' }
+// -> dispatches:
+// {
+//   type: 'todoToggleVisibility',
+//   payload: { visible: true}
+// }
 ```
 ***"But `todoToggleVisibility` didn't have an action argument! What's all this
 then?!"***
@@ -135,7 +131,7 @@ Glad you asked. When we call `reduxr`, 2 things happen:
 will always return an action object with a `type` property.  The type property
 has the same name as the reducer method.
 2. The `reducer` function is supplied with our reducer map and the value of any
-   initial state we supplied.
+initial state we supplied. If a match is not found, state is returned.
 
 When an action is dispatched, the reducer matches the `type` value of the action
 being dispatched to the same key in the reducer map.  In our case, we
@@ -151,7 +147,7 @@ requires an action with a payload.
 // Todo.js
 import { reduxr } from 'reduxr'
 
-// define our reducers in a hash map
+// define our reducers in a map
 const todoReducer = {
   todoToggleVisibility: (state) => {
     return {
