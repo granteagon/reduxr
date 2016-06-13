@@ -5,6 +5,8 @@
 With Reduxr, you never have to create actions or action creators unless you
 want to.  You just need to define your reducers.  Reduxr handles the rest.
 
+`npm install reduxr`
+
 ## What does it do?
 
 - Eliminates LONG_ACTION_NAMES_WITH_UNDERSCORES

@@ -1,7 +1,8 @@
 {
-  "name": "redux-dry",
+  "name": "reduxr",
   "version": "1.0.0",
-  "description": "DRY up your common use cases in Redux.",
+  "description": "Reduce Redux boilerplate",
+  "repository": "https://github.com/granteagon/reduxr",
   "main": "lib",
   "scripts": {
     "compile": "./node_modules/.bin/babel --presets es2015,stage-0 -d lib/ src/",
@@ -11,12 +12,12 @@
   "author": "Grant Eagon",
   "license": "MIT",
   "dependencies": {
-    "babel-cli": "^6.9.0",
-    "eslint": "^2.11.1",
-    "expect": "^1.20.1",
     "lodash": "^4.6.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "eslint": "^2.11.1",
+    "expect": "^1.20.1",
     "babel-core": "^5.4.7",
     "babel-eslint": "^5.0.0",
     "babel-plugin-react-transform": "^1.1.1",
