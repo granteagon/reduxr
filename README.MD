@@ -202,7 +202,7 @@ const store = createStore(
 )
 
 store.dispatch(Todo.action.complete(true))
-// -> dispatches: { type: 'todoToggleVisibility' }
+// -> dispatches: { type: 'todoToggleVisibility', payload: true }
 ```
 
 ## Namespaced reducers
