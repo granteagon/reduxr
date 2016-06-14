@@ -96,12 +96,14 @@ const initialState = {
 }
 
 export default const todo = reduxr(todoReducer, initialState)
-{
-  action: {
-    todoToggleVisibility: [Function] // action creator method
-  },
-  reducer: [Function] // reducer method for use in combineReducers
-}
+
+// ->
+// {
+//  action: {
+//    todoToggleVisibility: [Function] // action creator method
+//  },
+//  reducer: [Function] // reducer method for use in combineReducers
+// }
 ```
 
 #### Dispatching an Action
