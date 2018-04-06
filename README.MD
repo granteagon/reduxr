@@ -20,8 +20,26 @@ methods are defined in an easy to read map.
 
 ## How Does it Work?
 
-Define a map of individual reducer methods and a reducer function and
-action map will be generated for you.
+Create a map of reducer methods, where the property name equates to the Redux action name, and the method body is the body from the switch case.
+### Typical Redux
+
+```js
+import reject from 'lodash/reject'
+
+const initialState = []
+
+const reducers = (state=initialState, action) => {
+  switch (action.type) {
+    case 'create':
+      return [...state, action.payload ];
+    case 'delete':
+      return reject(state, actino.payload);
+    default:
+      return state;
+  }
+}
+```
+### Becomes this in Reduxr
 
 ```js
 import reject from 'lodash/reject'
@@ -45,7 +63,11 @@ const todoArray = reduxr(reducers, initialState)
 // }
 ```
 
-Now we can manually dispatch an action through the reducer to see the output:
+Because the method name is already in the reducers map, there is no need to specify the action type.
+All you need to send to any reducer in the map is the payload required to dispatch the action.
+
+We can manually dispatch an action through the reducer to see the output:
+
 ```js
 const action = todoArray.action.create({
   id: 1,
